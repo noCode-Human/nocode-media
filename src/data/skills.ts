@@ -16,6 +16,8 @@ export interface Skill {
   image: string;
   featured: boolean;
   tags: string[];
+  purchaseUrl?: string;
+  purchaseLabel?: string;
   markdown: string;
   htmlPreview: string;
   examples: SkillExample[];
@@ -1363,6 +1365,8 @@ studio.play();
     image: "/skills/html-templates.jpg",
     featured: false,
     tags: ["HTML", "Templates", "Responsive", "CSS"],
+    purchaseUrl: "https://ko-fi.com/s/768aff36b3",
+    purchaseLabel: "Get Template",
     stats: { uses: 18900, rating: 4.8, created: "2024-01-15" },
     markdown: `## HTML Template Engine
 

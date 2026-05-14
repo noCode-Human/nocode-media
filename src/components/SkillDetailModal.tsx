@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { X, Code, Eye, Image, Star, Users, Copy, Check } from 'lucide-react';
+import { X, Code, Eye, Image, Star, Users, Copy, Check, ExternalLink } from 'lucide-react';
 import type { Skill, SkillExample } from '@/data/skills';
 
 type TabType = 'preview' | 'markdown' | 'gallery';
@@ -362,6 +362,7 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
       >
         {/* Header */}
         <div
+          className="skill-modal-header"
           style={{
             padding: '20px 24px',
             borderBottom: '1px solid #222',
@@ -369,6 +370,7 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
             alignItems: 'center',
             gap: 16,
             position: 'relative',
+            flexWrap: 'wrap',
           }}
         >
           {/* Skill image */}
@@ -428,6 +430,35 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
               {skill.description}
             </p>
           </div>
+
+          {skill.purchaseUrl && (
+            <a
+              className="skill-purchase-link"
+              href={skill.purchaseUrl}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 7,
+                marginRight: 8,
+                padding: '9px 12px',
+                background: 'var(--market-accent)',
+                color: '#050505',
+                borderRadius: 6,
+                fontSize: 10,
+                fontWeight: 800,
+                fontFamily: "'Space Mono', monospace",
+                letterSpacing: '1px',
+                textDecoration: 'none',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {skill.purchaseLabel || 'Get Skill'}
+              <ExternalLink size={12} />
+            </a>
+          )}
 
           {/* Stats */}
           <div style={{ display: 'flex', gap: 16, marginRight: 40 }}>
