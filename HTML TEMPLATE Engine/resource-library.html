@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resource Library</title>
+  <style>
+    :root { --bg:#090909; --surface:#121212; --surface2:#191919; --text:#f4f4f4; --muted:#8d8d8d; --line:#282828; --accent:#ff2a2a; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter, ui-sans-serif, system-ui, sans-serif; }
+    .app { min-height:100vh; display:grid; grid-template-columns:260px 1fr; }
+    aside { border-right:1px solid var(--line); padding:22px; position:sticky; top:0; height:100vh; }
+    .brand { font:12px "Space Mono", ui-monospace, monospace; letter-spacing:.16em; text-transform:uppercase; margin-bottom:38px; }
+    nav { display:grid; gap:8px; }
+    nav a { color:var(--muted); text-decoration:none; padding:10px 12px; border-radius:6px; font-size:14px; }
+    nav a.active { background:var(--surface2); color:var(--accent); }
+    main { padding:30px; }
+    .top { display:flex; justify-content:space-between; gap:16px; align-items:end; border-bottom:1px solid var(--line); padding-bottom:24px; }
+    h1 { font-size:clamp(42px, 7vw, 84px); line-height:.95; margin:0; }
+    .search { background:var(--surface); border:1px solid var(--line); color:var(--text); padding:14px; border-radius:6px; min-width:min(360px,100%); }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:24px; }
+    article { background:var(--surface); border:1px solid var(--line); border-radius:8px; min-height:230px; padding:18px; display:flex; flex-direction:column; justify-content:space-between; }
+    article:hover { border-color:var(--accent); }
+    .type { color:var(--accent); font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; letter-spacing:.12em; }
+    h2 { font-size:24px; margin:14px 0 10px; }
+    p { color:var(--muted); line-height:1.55; margin:0; }
+    .download { display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:14px; color:var(--muted); font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; }
+    .featured { grid-column:span 2; background:#161010; }
+    @media(max-width:900px){ .app{grid-template-columns:1fr;} aside{height:auto; position:relative; border-right:0; border-bottom:1px solid var(--line);} .top,.grid{grid-template-columns:1fr; display:grid;} .featured{grid-column:span 1;} }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside><div class="brand">Resource Library</div><nav><a class="active" href="#">Featured</a><a href="#">Templates</a><a href="#">Checklists</a><a href="#">Scripts</a><a href="#">Swipe Files</a></nav></aside>
+    <main>
+      <section class="top"><h1>Everything useful, sorted.</h1><input class="search" value="Search resources"></section>
+      <section class="grid">
+        <article class="featured"><div><span class="type">Template</span><h2>Launch Week Control Room</h2><p>A planning board, email sequence, and launch checklist in one downloadable pack.</p></div><div class="download"><span>HTML + PDF</span><span>Download</span></div></article>
+        <article><div><span class="type">Checklist</span><h2>Pre-sale QA</h2><p>Make sure your product page, links, pricing, and delivery all work before posting.</p></div><div class="download"><span>PDF</span><span>Download</span></div></article>
+        <article><div><span class="type">Script</span><h2>Demo Video</h2><p>A short structure for recording product walkthroughs that do not ramble.</p></div><div class="download"><span>DOC</span><span>Open</span></div></article>
+        <article><div><span class="type">Swipe</span><h2>CTA Bank</h2><p>Clear calls-to-action for free, paid, and pay-what-you-want resources.</p></div><div class="download"><span>TXT</span><span>Copy</span></div></article>
+        <article><div><span class="type">Template</span><h2>Buyer Handoff</h2><p>A clean post-purchase page with next steps and support notes.</p></div><div class="download"><span>HTML</span><span>Preview</span></div></article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

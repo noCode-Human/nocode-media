@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Client Portal Lite</title>
+  <style>
+    :root{--bg:#0c0c0c;--panel:#151515;--ink:#f6f2ee;--muted:#8c8580;--line:#2b2927;--accent:#ff2a2a;--ok:#00ff9d}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+    .wrap{width:min(1180px,calc(100% - 32px));margin:auto;padding:28px 0}
+    header{display:flex;justify-content:space-between;gap:14px;align-items:center;font:12px "Space Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.13em;border-bottom:1px solid var(--line);padding-bottom:18px}
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:20px;padding:34px 0}
+    h1{font-size:clamp(42px,7vw,86px);line-height:.92;margin:0}
+    .summary{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px;display:grid;gap:12px}
+    .row{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:12px;color:var(--muted)}
+    .row:last-child{border-bottom:0;padding-bottom:0}
+    .row strong{color:var(--ink)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    section{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+    h2{font:12px "Space Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.14em;margin:0;padding:15px 18px;border-bottom:1px solid var(--line)}
+    ul{list-style:none;margin:0;padding:0}
+    li{display:grid;grid-template-columns:1fr auto;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+    li:last-child{border-bottom:0}
+    .muted{color:var(--muted)}
+    .pill{font:11px "Space Mono",ui-monospace,monospace;color:#111;background:var(--accent);padding:5px 7px;border-radius:4px;text-transform:uppercase}
+    .pill.ok{background:var(--ok)}
+    .file{color:var(--ink);text-decoration:none}
+    @media(max-width:860px){.hero,.grid{grid-template-columns:1fr} header{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header><span>Client Portal Lite</span><span>Project: Site Refresh</span></header>
+    <main>
+      <div class="hero"><h1>One clean place for updates, files, and next steps.</h1><aside class="summary"><div class="row"><span>Status</span><strong>Build week</strong></div><div class="row"><span>Next review</span><strong>Friday 2pm</strong></div><div class="row"><span>Budget used</span><strong>62%</strong></div></aside></div>
+      <div class="grid">
+        <section><h2>Milestones</h2><ul><li><span>Discovery notes approved</span><span class="pill ok">Done</span></li><li><span>Homepage wireframe</span><span class="pill">Review</span></li><li><span>Final polish pass</span><span class="pill">Next</span></li></ul></section>
+        <section><h2>Files</h2><ul><li><a class="file" href="#">brand-assets.zip</a><span class="muted">12MB</span></li><li><a class="file" href="#">homepage-copy.doc</a><span class="muted">8KB</span></li><li><a class="file" href="#">launch-checklist.pdf</a><span class="muted">210KB</span></li></ul></section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

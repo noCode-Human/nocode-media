@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Command Center</title>
+  <style>
+    :root {
+      --bg: #070707;
+      --panel: #101010;
+      --panel-2: #171717;
+      --text: #f5f2ee;
+      --muted: #8a8783;
+      --line: #2a2725;
+      --accent: #ff2a2a;
+      --ok: #00ff9d;
+      --radius: 8px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0; position: relative; }
+    header { display: flex; justify-content: space-between; gap: 18px; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+    .brand { font-family: "Space Mono", ui-monospace, monospace; letter-spacing: .18em; font-size: 12px; text-transform: uppercase; }
+    .status { color: var(--ok); font-family: "Space Mono", ui-monospace, monospace; font-size: 12px; }
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; padding: 42px 0 24px; align-items: end; }
+    h1 { font-size: clamp(42px, 8vw, 94px); line-height: .9; letter-spacing: 0; margin: 0; max-width: 780px; }
+    .hero p { color: var(--muted); font-size: 16px; line-height: 1.6; margin: 18px 0 0; max-width: 520px; }
+    .ops-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+    .ops-row { display: flex; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .ops-row:last-child { border-bottom: 0; }
+    .label { color: var(--muted); font-family: "Space Mono", ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .12em; }
+    .value { color: var(--accent); font-family: "Space Mono", ui-monospace, monospace; }
+    .grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; margin-top: 18px; }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .panel h2 { margin: 0; padding: 16px 18px; font-size: 13px; font-family: "Space Mono", ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; border-bottom: 1px solid var(--line); }
+    .agents { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .agent { min-height: 190px; padding: 18px; border-right: 1px solid var(--line); }
+    .agent:last-child { border-right: 0; }
+    .agent strong { display: block; font-size: 20px; margin-bottom: 8px; }
+    .agent p { color: var(--muted); line-height: 1.5; margin: 0 0 22px; }
+    .bar { height: 8px; background: var(--panel-2); border-radius: 999px; overflow: hidden; }
+    .bar span { display: block; height: 100%; background: var(--accent); }
+    .queue { list-style: none; margin: 0; padding: 0; }
+    .queue li { padding: 15px 18px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 16px; }
+    .queue li:last-child { border-bottom: 0; }
+    .task { color: var(--text); }
+    .time { color: var(--muted); font-family: "Space Mono", ui-monospace, monospace; font-size: 11px; }
+    .cta { display: inline-flex; margin-top: 22px; background: var(--accent); color: #090909; text-decoration: none; padding: 13px 18px; border-radius: 4px; font-weight: 800; }
+    footer { color: var(--muted); font-family: "Space Mono", ui-monospace, monospace; font-size: 11px; margin-top: 28px; }
+    @media (max-width: 820px) {
+      .hero, .grid { grid-template-columns: 1fr; }
+      .agents { grid-template-columns: 1fr; }
+      .agent { border-right: 0; border-bottom: 1px solid var(--line); }
+      header { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">Agent Command Center</div>
+      <div class="status">SYSTEM ONLINE</div>
+    </header>
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Run your AI workbench from one calm screen.</h1>
+          <p>A one-page operating dashboard for tracking agents, jobs, handoffs, and launch tasks without opening eight separate tools.</p>
+          <a class="cta" href="#">Start today's run</a>
+        </div>
+        <aside class="ops-card">
+          <div class="ops-row"><span class="label">Active agents</span><span class="value">04</span></div>
+          <div class="ops-row"><span class="label">Queued jobs</span><span class="value">12</span></div>
+          <div class="ops-row"><span class="label">Ship target</span><span class="value">18:00</span></div>
+        </aside>
+      </section>
+      <section class="grid">
+        <article class="panel">
+          <h2>Agent Status</h2>
+          <div class="agents">
+            <div class="agent"><strong>Research</strong><p>Gathering source notes and summarizing risks.</p><div class="bar"><span style="width:72%"></span></div></div>
+            <div class="agent"><strong>Build</strong><p>Editing components and checking the browser state.</p><div class="bar"><span style="width:48%"></span></div></div>
+            <div class="agent"><strong>Publish</strong><p>Waiting on final copy and deployment approval.</p><div class="bar"><span style="width:28%"></span></div></div>
+          </div>
+        </article>
+        <article class="panel">
+          <h2>Queue</h2>
+          <ul class="queue">
+            <li><span class="task">Package HTML examples</span><span class="time">09:10</span></li>
+            <li><span class="task">Write Ko-fi listing copy</span><span class="time">09:35</span></li>
+            <li><span class="task">Deploy product page</span><span class="time">10:00</span></li>
+            <li><span class="task">Post launch thread</span><span class="time">10:20</span></li>
+          </ul>
+        </article>
+      </section>
+    </main>
+    <footer>Edit labels, tasks, and progress bars. No build step required.</footer>
+  </div>
+</body>
+</html>

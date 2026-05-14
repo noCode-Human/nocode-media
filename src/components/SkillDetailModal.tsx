@@ -646,25 +646,43 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
                         width: '100%',
                         aspectRatio: '16/9',
                         overflow: 'hidden',
+                        background: '#050505',
                       }}
                     >
-                      <img
-                        src={example.image}
-                        alt={example.title}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                          filter: 'var(--market-accent-image-filter)',
-                          transition: 'transform 0.4s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.transform = 'scale(1.05)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = 'scale(1)';
-                        }}
-                      />
+                      {example.html ? (
+                        <iframe
+                          title={`${example.title} template preview`}
+                          srcDoc={example.html}
+                          sandbox=""
+                          style={{
+                            border: 'none',
+                            transform: 'scale(0.42)',
+                            transformOrigin: 'top left',
+                            width: '238%',
+                            height: '238%',
+                            pointerEvents: 'none',
+                            background: '#fff',
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src={example.image}
+                          alt={example.title}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            filter: 'var(--market-accent-image-filter)',
+                            transition: 'transform 0.4s ease',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'scale(1.05)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'scale(1)';
+                          }}
+                        />
+                      )}
                     </div>
                     <div style={{ padding: 12 }}>
                       <div
@@ -678,6 +696,19 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
                       >
                         {example.title}
                       </div>
+                      {example.fileName && (
+                        <div
+                          style={{
+                            color: 'var(--market-accent)',
+                            fontSize: 9,
+                            fontFamily: "'Space Mono', monospace",
+                            marginBottom: 6,
+                            letterSpacing: '0.5px',
+                          }}
+                        >
+                          {example.fileName}
+                        </div>
+                      )}
                       <div
                         style={{
                           color: '#888',

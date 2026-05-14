@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Tool Directory</title>
+  <style>
+    :root { --paper:#f7f7f4; --ink:#111; --soft:#76716a; --line:#d8d2c8; --card:#fffdf8; --accent:#ff2a2a; --dark:#090909; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; padding: 30px 0 48px; }
+    nav { display:flex; justify-content:space-between; gap:16px; align-items:center; font-family:"Space Mono", ui-monospace, monospace; font-size:12px; text-transform:uppercase; letter-spacing:.14em; border-bottom:1px solid var(--line); padding-bottom:18px; }
+    h1 { font-size: clamp(44px, 8vw, 104px); line-height:.92; margin:52px 0 18px; max-width: 900px; }
+    .intro { display:grid; grid-template-columns: 1fr auto; gap:24px; align-items:end; margin-bottom:28px; }
+    .intro p { color:var(--soft); line-height:1.6; font-size:18px; max-width:620px; margin:0; }
+    .search { border:1px solid var(--ink); background:transparent; padding:14px 16px; min-width:min(360px,100%); font:14px "Space Mono", ui-monospace, monospace; }
+    .tabs { display:flex; gap:8px; flex-wrap:wrap; margin:26px 0; }
+    .tab { border:1px solid var(--line); background:var(--card); padding:9px 12px; border-radius:999px; font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; letter-spacing:.1em; }
+    .tab.active { background:var(--dark); color:white; border-color:var(--dark); }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    article { background:var(--card); border:1px solid var(--line); border-radius:8px; min-height:230px; padding:18px; display:flex; flex-direction:column; justify-content:space-between; }
+    article:hover { border-color:var(--accent); }
+    .top { display:flex; justify-content:space-between; gap:14px; align-items:start; }
+    .glyph { width:42px; height:42px; border-radius:6px; background:var(--dark); color:var(--accent); display:grid; place-items:center; font-family:"Space Mono", ui-monospace, monospace; }
+    h2 { margin:0; font-size:24px; }
+    .tag { color:var(--accent); font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; }
+    p { color:var(--soft); line-height:1.55; }
+    .meta { display:flex; justify-content:space-between; gap:10px; color:var(--soft); font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; border-top:1px solid var(--line); padding-top:12px; }
+    .feature { grid-column:span 2; background:var(--dark); color:white; }
+    .feature p, .feature .meta { color:#bdb7ae; border-color:#2d2924; }
+    .feature .glyph { background:var(--accent); color:#111; }
+    @media (max-width: 820px) { .intro, .grid { grid-template-columns:1fr; } .feature { grid-column:span 1; } h1 { font-size:48px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav><span>Tool Stack Index</span><span>Updated weekly</span></nav>
+    <main>
+      <h1>Find the right AI tool before you lose the afternoon.</h1>
+      <div class="intro">
+        <p>A curated directory page for creator workflows, dev tools, research assistants, and automation utilities. Replace cards with your own picks.</p>
+        <input class="search" value="Search: video, code, research" aria-label="Search tools">
+      </div>
+      <div class="tabs"><span class="tab active">All</span><span class="tab">Video</span><span class="tab">Code</span><span class="tab">Writing</span><span class="tab">Automation</span></div>
+      <section class="grid">
+        <article class="feature"><div class="top"><div><h2>Launch Copilot</h2><span class="tag">Planning</span></div><div class="glyph">01</div></div><p>Turns a rough product idea into a launch plan, offer stack, asset checklist, and first-week content calendar.</p><div class="meta"><span>Best for builders</span><span>Free tier</span></div></article>
+        <article><div class="top"><div><h2>Clip Forge</h2><span class="tag">Video</span></div><div class="glyph">02</div></div><p>Pulls short clips from long recordings and drafts hooks for each cut.</p><div class="meta"><span>Fast</span><span>$19/mo</span></div></article>
+        <article><div class="top"><div><h2>Spec Smith</h2><span class="tag">Code</span></div><div class="glyph">03</div></div><p>Converts messy feature notes into implementation-ready issues.</p><div class="meta"><span>Dev</span><span>API</span></div></article>
+        <article><div class="top"><div><h2>Inbox Miner</h2><span class="tag">Research</span></div><div class="glyph">04</div></div><p>Finds patterns in customer emails and turns them into product insights.</p><div class="meta"><span>Teams</span><span>CSV</span></div></article>
+        <article><div class="top"><div><h2>Voice Draft</h2><span class="tag">Writing</span></div><div class="glyph">05</div></div><p>Rewrites notes into your actual voice without flattening the point.</p><div class="meta"><span>Creator</span><span>PWYW</span></div></article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

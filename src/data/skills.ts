@@ -1,7 +1,11 @@
+import { htmlTemplateEngineExamples } from './htmlTemplateEngineExamples';
+
 export interface SkillExample {
   title: string;
-  image: string;
+  image?: string;
   description: string;
+  html?: string;
+  fileName?: string;
 }
 
 export interface Skill {
@@ -1354,7 +1358,7 @@ studio.play();
   {
     id: "html-templates",
     title: "HTML Template Engine",
-    description: "Generate production-ready HTML templates with inline CSS, responsive design, and semantic markup.",
+    description: "A ready-to-give-away pack with eight self-contained one-page HTML templates for creators and builders.",
     category: "HTML",
     image: "/skills/html-templates.jpg",
     featured: false,
@@ -1362,160 +1366,30 @@ studio.play();
     stats: { uses: 18900, rating: 4.8, created: "2024-01-15" },
     markdown: `## HTML Template Engine
 
-Generate production-ready HTML templates with AI.
+Eight production-ready single-file HTML templates for creators, builders, and digital product sellers.
 
-### Features
-- Semantic HTML5 output
-- Inline CSS styling
-- Responsive design
-- Dark/light mode
-- Accessibility ready
+### Included Templates
+- Agent Command Center
+- AI Tool Directory
+- Creator Launch Page
+- Product Waitlist
+- Resource Library
+- Mini Course Hub
+- Client Portal Lite
+- Prompt Pack Sales Page
 
-### Example
-\`\`\`html
-<!-- Generated landing page -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Landing Page</title>
-    <style>
-        /* Auto-generated responsive styles */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: system-ui, sans-serif; }
-        @media (prefers-color-scheme: dark) {
-            body { background: #0a0a0a; color: #fff; }
-        }
-    </style>
-</head>
-<body>
-    <header>...</header>
-    <main>...</main>
-    <footer>...</footer>
-</body>
-</html>
-\`\`\`
+### What Makes It Useful
+- No build step
+- Inline CSS
+- Responsive layouts
+- Semantic HTML
+- Editable real copy
+- Strong visual systems
 
-### Template Types
-- Landing pages
-- Email templates
-- Dashboard layouts
-- Portfolio sites
-- Documentation`,
-    htmlPreview: `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Template Preview</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: #0a0a0a; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh;
-            font-family: 'Space Mono', monospace;
-        }
-        .template-preview {
-            width: 500px;
-            background: #111;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid #ff2a2a33;
-        }
-        .editor-header {
-            padding: 12px 16px;
-            background: #1a1a1a;
-            border-bottom: 1px solid #222;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .dot.green { background: #27c93f; }
-        .filename { color: #666; font-size: 12px; margin-left: 8px; }
-        .code-editor {
-            padding: 20px;
-            background: #0d0d0d;
-            font-size: 12px;
-            line-height: 1.8;
-            overflow-x: auto;
-        }
-        .code-line { display: flex; }
-        .line-num { color: #444; width: 30px; text-align: right; margin-right: 16px; user-select: none; }
-        .code-tag { color: #ff79c6; }
-        .code-attr { color: #50fa7b; }
-        .code-val { color: #f1fa8c; }
-        .code-text { color: #f8f8f2; }
-        .code-comment { color: #6272a4; }
-        .preview-pane {
-            height: 160px;
-            background: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .preview-title { color: #333; font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 600; }
-        .preview-btn {
-            padding: 10px 24px;
-            background: #ff2a2a;
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <div class="template-preview">
-        <div class="editor-header">
-            <div class="dot red"></div>
-            <div class="dot yellow"></div>
-            <div class="dot green"></div>
-            <span class="filename">index.html</span>
-        </div>
-        <div class="code-editor">
-            <div class="code-line">
-                <span class="line-num">1</span>
-                <span><span class="code-tag">&lt;!DOCTYPE</span> <span class="code-attr">html</span><span class="code-tag">&gt;</span></span>
-            </div>
-            <div class="code-line">
-                <span class="line-num">2</span>
-                <span><span class="code-tag">&lt;html</span> <span class="code-attr">lang</span>=<span class="code-val">"en"</span><span class="code-tag">&gt;</span></span>
-            </div>
-            <div class="code-line">
-                <span class="line-num">3</span>
-                <span>&nbsp;&nbsp;<span class="code-tag">&lt;head&gt;</span></span>
-            </div>
-            <div class="code-line">
-                <span class="line-num">4</span>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;title&gt;</span><span class="code-text">Welcome</span><span class="code-tag">&lt;/title&gt;</span></span>
-            </div>
-            <div class="code-line">
-                <span class="line-num">5</span>
-                <span>&nbsp;&nbsp;<span class="code-tag">&lt;/head&gt;</span></span>
-            </div>
-        </div>
-        <div class="preview-pane">
-            <div class="preview-title">Welcome</div>
-            <button class="preview-btn">Learn More</button>
-        </div>
-    </div>
-</body>
-</html>`,
-    examples: [
-      { title: "Code Editor", image: "/skills/html-templates.jpg", description: "Live HTML/CSS editor with instant preview" },
-    ]
+### Package Folder
+\`HTML TEMPLATE Engine/\` contains the skill guide plus all eight editable HTML files.`,
+    htmlPreview: htmlTemplateEngineExamples[0].html,
+    examples: htmlTemplateEngineExamples
   },
 ];
 

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prompt Pack Sales Page</title>
+  <style>
+    :root{--bg:#f6f3ee;--ink:#101010;--muted:#746d65;--line:#d8d0c4;--accent:#ff2a2a;--card:#fffaf2}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+    .wrap{width:min(1120px,calc(100% - 32px));margin:auto;padding:28px 0 44px}
+    header{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:18px;font:12px "Space Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.13em}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:26px;align-items:end;padding:58px 0 28px}
+    h1{font-size:clamp(48px,9vw,112px);line-height:.86;margin:0}
+    .buy{background:var(--ink);color:white;border-radius:8px;padding:22px}
+    .price{font-size:60px;font-weight:900;line-height:1}
+    .buy p{color:#bbb;line-height:1.5}
+    .btn{display:block;text-align:center;background:var(--accent);color:#111;text-decoration:none;padding:14px;border-radius:4px;font-weight:900}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    article{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;min-height:210px}
+    .kicker{font:11px "Space Mono",ui-monospace,monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.12em}
+    h2{font-size:24px;margin:14px 0 10px}
+    p{color:var(--muted);line-height:1.55}
+    .preview{margin-top:14px;background:#111;color:#eee;border-radius:6px;padding:14px;font:12px "Space Mono",ui-monospace,monospace;line-height:1.6}
+    .red{color:var(--accent)}
+    @media(max-width:860px){.hero,.grid{grid-template-columns:1fr} header{flex-direction:column;gap:10px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header><span>Prompt Pack</span><span>50 editable prompts</span></header>
+    <main>
+      <section class="hero"><div><span class="kicker">For busy builders</span><h1>Prompts that turn vague ideas into shippable assets.</h1></div><aside class="buy"><div class="price">$9</div><p>Includes prompt chains for offers, landing pages, demo scripts, and product docs.</p><a class="btn" href="#">Get the pack</a></aside></section>
+      <section class="grid">
+        <article><span class="kicker">01</span><h2>Offer prompts</h2><p>Turn rough audience pain into product angles and simple pricing tests.</p><div class="preview"><span class="red">&gt;</span> Clarify this offer for...</div></article>
+        <article><span class="kicker">02</span><h2>Page prompts</h2><p>Draft clean hero sections, FAQs, and proof blocks without hype.</p><div class="preview"><span class="red">&gt;</span> Rewrite this page for...</div></article>
+        <article><span class="kicker">03</span><h2>Launch prompts</h2><p>Create posts, email drafts, and short video scripts for a first release.</p><div class="preview"><span class="red">&gt;</span> Make a 5-day launch...</div></article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

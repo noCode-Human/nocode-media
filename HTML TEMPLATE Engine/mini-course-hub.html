@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Course Hub</title>
+  <style>
+    :root { --bg:#f8f8f6; --ink:#111; --muted:#77716a; --line:#ddd7ce; --card:#fff; --accent:#ff2a2a; }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+    .wrap{width:min(1140px,calc(100% - 32px));margin:auto;padding:28px 0 48px}
+    header{display:flex;justify-content:space-between;gap:14px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:18px;font:12px "Space Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.13em}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:end;padding:56px 0 26px}
+    h1{font-size:clamp(44px,8vw,100px);line-height:.9;margin:0}
+    .progress{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px}
+    .ring{width:150px;aspect-ratio:1;border-radius:50%;margin:auto;display:grid;place-items:center;background:conic-gradient(var(--accent) 72%, #ece6dc 0)}
+    .ring span{background:var(--card);width:112px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:30px;font-weight:900}
+    .modules{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    article{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;min-height:260px;display:flex;flex-direction:column;justify-content:space-between}
+    .num{font:12px "Space Mono",ui-monospace,monospace;color:var(--accent)}
+    h2{font-size:24px;margin:0}
+    p{color:var(--muted);line-height:1.55;margin:12px 0 0}
+    .lesson{border-top:1px solid var(--line);padding-top:12px;font:11px "Space Mono",ui-monospace,monospace;text-transform:uppercase;color:var(--muted)}
+    .cta{display:inline-flex;background:#111;color:white;text-decoration:none;padding:14px 18px;border-radius:4px;margin-top:20px;font-weight:800}
+    @media(max-width:900px){.hero,.modules{grid-template-columns:1fr}.progress{order:-1}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header><span>Mini Course Hub</span><span>4 lessons</span></header>
+    <main>
+      <section class="hero"><div><h1>Teach one valuable thing without building a platform.</h1><a class="cta" href="#">Continue lesson</a></div><aside class="progress"><div class="ring"><span>72%</span></div></aside></section>
+      <section class="modules">
+        <article><div><span class="num">01</span><h2>Set the promise</h2><p>Write the outcome, prerequisite, and exact finish line for the learner.</p></div><div class="lesson">18 min / complete</div></article>
+        <article><div><span class="num">02</span><h2>Show the workflow</h2><p>Break the process into steps someone can repeat after watching once.</p></div><div class="lesson">24 min / active</div></article>
+        <article><div><span class="num">03</span><h2>Give the template</h2><p>Include the actual file, checklist, or starting point they can use.</p></div><div class="lesson">12 min / locked</div></article>
+        <article><div><span class="num">04</span><h2>Ship the result</h2><p>Help them publish, share, or test the finished artifact.</p></div><div class="lesson">16 min / locked</div></article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
