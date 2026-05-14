@@ -16,7 +16,8 @@
     .ring{width:150px;aspect-ratio:1;border-radius:50%;margin:auto;display:grid;place-items:center;background:conic-gradient(var(--accent) 72%, #ece6dc 0)}
     .ring span{background:var(--card);width:112px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:30px;font-weight:900}
     .modules{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    article{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;min-height:260px;display:flex;flex-direction:column;justify-content:space-between}
+    article{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;min-height:260px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}
+    article.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
     .num{font:12px "Space Mono",ui-monospace,monospace;color:var(--accent)}
     h2{font-size:24px;margin:0}
     p{color:var(--muted);line-height:1.55;margin:12px 0 0}
@@ -29,14 +30,31 @@
   <div class="wrap">
     <header><span>Mini Course Hub</span><span>4 lessons</span></header>
     <main>
-      <section class="hero"><div><h1>Teach one valuable thing without building a platform.</h1><a class="cta" href="#">Continue lesson</a></div><aside class="progress"><div class="ring"><span>72%</span></div></aside></section>
+      <section class="hero"><div><h1>Teach one valuable thing without building a platform.</h1><a class="cta" href="#">Continue lesson 02</a></div><aside class="progress"><div class="ring"><span>72%</span></div></aside></section>
       <section class="modules">
-        <article><div><span class="num">01</span><h2>Set the promise</h2><p>Write the outcome, prerequisite, and exact finish line for the learner.</p></div><div class="lesson">18 min / complete</div></article>
-        <article><div><span class="num">02</span><h2>Show the workflow</h2><p>Break the process into steps someone can repeat after watching once.</p></div><div class="lesson">24 min / active</div></article>
-        <article><div><span class="num">03</span><h2>Give the template</h2><p>Include the actual file, checklist, or starting point they can use.</p></div><div class="lesson">12 min / locked</div></article>
-        <article><div><span class="num">04</span><h2>Ship the result</h2><p>Help them publish, share, or test the finished artifact.</p></div><div class="lesson">16 min / locked</div></article>
+        <article data-progress="25"><div><span class="num">01</span><h2>Set the promise</h2><p>Write the outcome, prerequisite, and exact finish line for the learner.</p></div><div class="lesson">18 min / complete</div></article>
+        <article class="active" data-progress="72"><div><span class="num">02</span><h2>Show the workflow</h2><p>Break the process into steps someone can repeat after watching once.</p></div><div class="lesson">24 min / active</div></article>
+        <article data-progress="83"><div><span class="num">03</span><h2>Give the template</h2><p>Include the actual file, checklist, or starting point they can use.</p></div><div class="lesson">12 min / preview</div></article>
+        <article data-progress="100"><div><span class="num">04</span><h2>Ship the result</h2><p>Help them publish, share, or test the finished artifact.</p></div><div class="lesson">16 min / preview</div></article>
       </section>
     </main>
   </div>
+  <script>
+    const lessons = document.querySelectorAll('article');
+    const ring = document.querySelector('.ring');
+    const ringText = document.querySelector('.ring span');
+    const cta = document.querySelector('.cta');
+
+    lessons.forEach((lesson, index) => {
+      lesson.addEventListener('click', () => {
+        lessons.forEach((item) => item.classList.remove('active'));
+        lesson.classList.add('active');
+        const progress = lesson.dataset.progress;
+        ring.style.background = `conic-gradient(var(--accent) ${progress}%, #ece6dc 0)`;
+        ringText.textContent = `${progress}%`;
+        cta.textContent = `Continue lesson ${String(index + 1).padStart(2, '0')}`;
+      });
+    });
+  </script>
 </body>
 </html>

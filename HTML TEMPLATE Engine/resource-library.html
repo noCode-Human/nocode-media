@@ -24,24 +24,54 @@
     .type { color:var(--accent); font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; letter-spacing:.12em; }
     h2 { font-size:24px; margin:14px 0 10px; }
     p { color:var(--muted); line-height:1.55; margin:0; }
-    .download { display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:14px; color:var(--muted); font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; }
+    .download { display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:14px; color:var(--muted); font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; cursor:pointer; }
+    .download:hover { color:var(--accent); }
     .featured { grid-column:span 2; background:#161010; }
     @media(max-width:900px){ .app{grid-template-columns:1fr;} aside{height:auto; position:relative; border-right:0; border-bottom:1px solid var(--line);} .top,.grid{grid-template-columns:1fr; display:grid;} .featured{grid-column:span 1;} }
   </style>
 </head>
 <body>
   <div class="app">
-    <aside><div class="brand">Resource Library</div><nav><a class="active" href="#">Featured</a><a href="#">Templates</a><a href="#">Checklists</a><a href="#">Scripts</a><a href="#">Swipe Files</a></nav></aside>
+    <aside><div class="brand">Resource Library</div><nav><a class="active" data-filter="all" href="#">Featured</a><a data-filter="template" href="#">Templates</a><a data-filter="checklist" href="#">Checklists</a><a data-filter="script" href="#">Scripts</a><a data-filter="swipe" href="#">Swipe Files</a></nav></aside>
     <main>
       <section class="top"><h1>Everything useful, sorted.</h1><input class="search" value="Search resources"></section>
       <section class="grid">
-        <article class="featured"><div><span class="type">Template</span><h2>Launch Week Control Room</h2><p>A planning board, email sequence, and launch checklist in one downloadable pack.</p></div><div class="download"><span>HTML + PDF</span><span>Download</span></div></article>
-        <article><div><span class="type">Checklist</span><h2>Pre-sale QA</h2><p>Make sure your product page, links, pricing, and delivery all work before posting.</p></div><div class="download"><span>PDF</span><span>Download</span></div></article>
-        <article><div><span class="type">Script</span><h2>Demo Video</h2><p>A short structure for recording product walkthroughs that do not ramble.</p></div><div class="download"><span>DOC</span><span>Open</span></div></article>
-        <article><div><span class="type">Swipe</span><h2>CTA Bank</h2><p>Clear calls-to-action for free, paid, and pay-what-you-want resources.</p></div><div class="download"><span>TXT</span><span>Copy</span></div></article>
-        <article><div><span class="type">Template</span><h2>Buyer Handoff</h2><p>A clean post-purchase page with next steps and support notes.</p></div><div class="download"><span>HTML</span><span>Preview</span></div></article>
+        <article class="featured" data-type="template"><div><span class="type">Template</span><h2>Launch Week Control Room</h2><p>A planning board, email sequence, and launch checklist in one downloadable pack.</p></div><div class="download"><span>HTML + PDF</span><span>Download</span></div></article>
+        <article data-type="checklist"><div><span class="type">Checklist</span><h2>Pre-sale QA</h2><p>Make sure your product page, links, pricing, and delivery all work before posting.</p></div><div class="download"><span>PDF</span><span>Download</span></div></article>
+        <article data-type="script"><div><span class="type">Script</span><h2>Demo Video</h2><p>A short structure for recording product walkthroughs that do not ramble.</p></div><div class="download"><span>DOC</span><span>Open</span></div></article>
+        <article data-type="swipe"><div><span class="type">Swipe</span><h2>CTA Bank</h2><p>Clear calls-to-action for free, paid, and pay-what-you-want resources.</p></div><div class="download"><span>TXT</span><span>Copy</span></div></article>
+        <article data-type="template"><div><span class="type">Template</span><h2>Buyer Handoff</h2><p>A clean post-purchase page with next steps and support notes.</p></div><div class="download"><span>HTML</span><span>Preview</span></div></article>
       </section>
     </main>
   </div>
+  <script>
+    const links = document.querySelectorAll('nav a');
+    const resources = document.querySelectorAll('article');
+    const searchBox = document.querySelector('.search');
+    const downloads = document.querySelectorAll('.download span:last-child');
+    let active = 'all';
+
+    function filterResources() {
+      const query = searchBox.value.toLowerCase().replace('search resources', '').trim();
+      resources.forEach((card) => {
+        const typeMatch = active === 'all' || card.dataset.type === active;
+        const textMatch = card.textContent.toLowerCase().includes(query);
+        card.style.display = typeMatch && textMatch ? 'flex' : 'none';
+      });
+    }
+
+    links.forEach((link) => link.addEventListener('click', (event) => {
+      event.preventDefault();
+      links.forEach((item) => item.classList.remove('active'));
+      link.classList.add('active');
+      active = link.dataset.filter;
+      filterResources();
+    }));
+
+    searchBox.addEventListener('input', filterResources);
+    downloads.forEach((action) => action.addEventListener('click', () => {
+      action.textContent = action.textContent === 'Ready' ? 'Download' : 'Ready';
+    }));
+  </script>
 </body>
 </html>

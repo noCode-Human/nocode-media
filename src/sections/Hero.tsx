@@ -153,7 +153,7 @@ export default function Hero() {
             display: 'block',
           }}
         />
-        <span>noCode.media</span>
+        <span className="hero-wordmark-text">noCode.media</span>
       </div>
 
       {/* Word Cycle */}

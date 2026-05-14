@@ -16,6 +16,8 @@
     .note p { margin:0; line-height:1.55; color:#4a4038; }
     .stamp { color:var(--accent); font:12px "Space Mono", ui-monospace, monospace; text-transform:uppercase; letter-spacing:.16em; margin-bottom:16px; }
     .cta { display:inline-flex; margin-top:22px; background:var(--accent); color:#111; padding:14px 18px; text-decoration:none; border-radius:4px; font-weight:900; }
+    .cta:active { transform:translateY(1px); }
+    .note.active { outline:2px solid var(--accent); }
     .strip { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
     .metric { padding:18px; border-right:1px solid var(--line); }
     .metric:last-child { border-right:0; }
@@ -58,5 +60,21 @@
     </main>
     <footer>Replace offer copy, CTA link, and metrics. Keep it short.</footer>
   </div>
+  <script>
+    const cta = document.querySelector('.cta');
+    const note = document.querySelector('.note p');
+    const noteCard = document.querySelector('.note');
+    let opened = false;
+
+    cta.addEventListener('click', (event) => {
+      event.preventDefault();
+      opened = !opened;
+      noteCard.classList.toggle('active', opened);
+      note.textContent = opened
+        ? 'Preview opened: offer brief, checkout copy, launch emails, post hooks, and a one-page delivery guide.'
+        : 'A practical bundle for turning a tutorial, template, or small tool into a paid resource without writing a giant sales page.';
+      cta.textContent = opened ? 'Preview loaded' : 'Get the launch kit';
+    });
+  </script>
 </body>
 </html>

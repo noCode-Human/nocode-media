@@ -21,7 +21,8 @@
     .kicker{font:11px "Space Mono",ui-monospace,monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.12em}
     h2{font-size:24px;margin:14px 0 10px}
     p{color:var(--muted);line-height:1.55}
-    .preview{margin-top:14px;background:#111;color:#eee;border-radius:6px;padding:14px;font:12px "Space Mono",ui-monospace,monospace;line-height:1.6}
+    .preview{margin-top:14px;background:#111;color:#eee;border-radius:6px;padding:14px;font:12px "Space Mono",ui-monospace,monospace;line-height:1.6;cursor:pointer}
+    .preview.active{outline:2px solid var(--accent)}
     .red{color:var(--accent)}
     @media(max-width:860px){.hero,.grid{grid-template-columns:1fr} header{flex-direction:column;gap:10px}}
   </style>
@@ -38,5 +39,24 @@
       </section>
     </main>
   </div>
+  <script>
+    const previews = document.querySelectorAll('.preview');
+    const buyButton = document.querySelector('.btn');
+    const buyCopy = document.querySelector('.buy p');
+
+    previews.forEach((preview) => {
+      preview.addEventListener('click', () => {
+        previews.forEach((item) => item.classList.remove('active'));
+        preview.classList.add('active');
+        preview.innerHTML = '<span class="red">&gt;</span> Copied sample prompt to your workspace.';
+      });
+    });
+
+    buyButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      buyButton.textContent = 'Pack added';
+      buyCopy.textContent = 'Demo state: checkout link, product files, and delivery email can be wired here.';
+    });
+  </script>
 </body>
 </html>

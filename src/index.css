@@ -338,4 +338,8 @@
     width: calc(100vw - 24px) !important;
     max-width: 325px !important;
   }
+
+  .hero-wordmark-text {
+    display: none;
+  }
 }

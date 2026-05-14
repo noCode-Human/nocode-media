@@ -56,6 +56,7 @@
     .task { color: var(--text); }
     .time { color: var(--muted); font-family: "Space Mono", ui-monospace, monospace; font-size: 11px; }
     .cta { display: inline-flex; margin-top: 22px; background: var(--accent); color: #090909; text-decoration: none; padding: 13px 18px; border-radius: 4px; font-weight: 800; }
+    .cta:active { transform: translateY(1px); }
     footer { color: var(--muted); font-family: "Space Mono", ui-monospace, monospace; font-size: 11px; margin-top: 28px; }
     @media (max-width: 820px) {
       .hero, .grid { grid-template-columns: 1fr; }
@@ -69,18 +70,18 @@
   <div class="shell">
     <header>
       <div class="brand">Agent Command Center</div>
-      <div class="status">SYSTEM ONLINE</div>
+      <div class="status" id="status">SYSTEM ONLINE</div>
     </header>
     <main>
       <section class="hero">
         <div>
           <h1>Run your AI workbench from one calm screen.</h1>
           <p>A one-page operating dashboard for tracking agents, jobs, handoffs, and launch tasks without opening eight separate tools.</p>
-          <a class="cta" href="#">Start today's run</a>
+          <a class="cta" id="start-run" href="#">Start today's run</a>
         </div>
         <aside class="ops-card">
-          <div class="ops-row"><span class="label">Active agents</span><span class="value">04</span></div>
-          <div class="ops-row"><span class="label">Queued jobs</span><span class="value">12</span></div>
+          <div class="ops-row"><span class="label">Active agents</span><span class="value" id="active-agents">04</span></div>
+          <div class="ops-row"><span class="label">Queued jobs</span><span class="value" id="queued-jobs">12</span></div>
           <div class="ops-row"><span class="label">Ship target</span><span class="value">18:00</span></div>
         </aside>
       </section>
@@ -88,9 +89,9 @@
         <article class="panel">
           <h2>Agent Status</h2>
           <div class="agents">
-            <div class="agent"><strong>Research</strong><p>Gathering source notes and summarizing risks.</p><div class="bar"><span style="width:72%"></span></div></div>
-            <div class="agent"><strong>Build</strong><p>Editing components and checking the browser state.</p><div class="bar"><span style="width:48%"></span></div></div>
-            <div class="agent"><strong>Publish</strong><p>Waiting on final copy and deployment approval.</p><div class="bar"><span style="width:28%"></span></div></div>
+            <div class="agent"><strong>Research</strong><p>Gathering source notes and summarizing risks.</p><div class="bar"><span data-progress="72" style="width:72%"></span></div></div>
+            <div class="agent"><strong>Build</strong><p>Editing components and checking the browser state.</p><div class="bar"><span data-progress="48" style="width:48%"></span></div></div>
+            <div class="agent"><strong>Publish</strong><p>Waiting on final copy and deployment approval.</p><div class="bar"><span data-progress="28" style="width:28%"></span></div></div>
           </div>
         </article>
         <article class="panel">
@@ -106,5 +107,27 @@
     </main>
     <footer>Edit labels, tasks, and progress bars. No build step required.</footer>
   </div>
+  <script>
+    const startRun = document.querySelector('#start-run');
+    const queuedJobs = document.querySelector('#queued-jobs');
+    const activeAgents = document.querySelector('#active-agents');
+    const status = document.querySelector('#status');
+    const bars = document.querySelectorAll('[data-progress]');
+    let runs = 0;
+
+    startRun.addEventListener('click', (event) => {
+      event.preventDefault();
+      runs += 1;
+      queuedJobs.textContent = String(Math.max(0, 12 - runs)).padStart(2, '0');
+      activeAgents.textContent = String(Math.min(6, 4 + runs)).padStart(2, '0');
+      status.textContent = runs % 2 ? 'RUNNING CHECKS' : 'SYSTEM ONLINE';
+
+      bars.forEach((bar, index) => {
+        const next = Math.min(100, Number(bar.dataset.progress) + 9 + index * 4);
+        bar.dataset.progress = next;
+        bar.style.width = `${next}%`;
+      });
+    });
+  </script>
 </body>
 </html>

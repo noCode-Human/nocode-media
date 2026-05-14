@@ -26,6 +26,8 @@
     .pill{font:11px "Space Mono",ui-monospace,monospace;color:#111;background:var(--accent);padding:5px 7px;border-radius:4px;text-transform:uppercase}
     .pill.ok{background:var(--ok)}
     .file{color:var(--ink);text-decoration:none}
+    .toast{margin-top:14px;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:14px;color:var(--muted)}
+    .grid li{cursor:pointer}
     @media(max-width:860px){.hero,.grid{grid-template-columns:1fr} header{align-items:flex-start;flex-direction:column}}
   </style>
 </head>
@@ -38,7 +40,26 @@
         <section><h2>Milestones</h2><ul><li><span>Discovery notes approved</span><span class="pill ok">Done</span></li><li><span>Homepage wireframe</span><span class="pill">Review</span></li><li><span>Final polish pass</span><span class="pill">Next</span></li></ul></section>
         <section><h2>Files</h2><ul><li><a class="file" href="#">brand-assets.zip</a><span class="muted">12MB</span></li><li><a class="file" href="#">homepage-copy.doc</a><span class="muted">8KB</span></li><li><a class="file" href="#">launch-checklist.pdf</a><span class="muted">210KB</span></li></ul></section>
       </div>
+      <div class="toast">Click a milestone to mark it done, or click a file to preview download status.</div>
     </main>
   </div>
+  <script>
+    const toast = document.querySelector('.toast');
+    document.querySelectorAll('section:first-child li').forEach((item) => {
+      item.addEventListener('click', () => {
+        const pill = item.querySelector('.pill');
+        pill.classList.add('ok');
+        pill.textContent = 'Done';
+        toast.textContent = `${item.querySelector('span').textContent} marked complete.`;
+      });
+    });
+
+    document.querySelectorAll('.file').forEach((file) => {
+      file.addEventListener('click', (event) => {
+        event.preventDefault();
+        toast.textContent = `${file.textContent} is ready to download.`;
+      });
+    });
+  </script>
 </body>
 </html>

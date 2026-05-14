@@ -15,7 +15,7 @@
     .intro p { color:var(--soft); line-height:1.6; font-size:18px; max-width:620px; margin:0; }
     .search { border:1px solid var(--ink); background:transparent; padding:14px 16px; min-width:min(360px,100%); font:14px "Space Mono", ui-monospace, monospace; }
     .tabs { display:flex; gap:8px; flex-wrap:wrap; margin:26px 0; }
-    .tab { border:1px solid var(--line); background:var(--card); padding:9px 12px; border-radius:999px; font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; letter-spacing:.1em; }
+    .tab { border:1px solid var(--line); background:var(--card); padding:9px 12px; border-radius:999px; font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; letter-spacing:.1em; cursor:pointer; }
     .tab.active { background:var(--dark); color:white; border-color:var(--dark); }
     .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
     article { background:var(--card); border:1px solid var(--line); border-radius:8px; min-height:230px; padding:18px; display:flex; flex-direction:column; justify-content:space-between; }
@@ -41,15 +41,40 @@
         <p>A curated directory page for creator workflows, dev tools, research assistants, and automation utilities. Replace cards with your own picks.</p>
         <input class="search" value="Search: video, code, research" aria-label="Search tools">
       </div>
-      <div class="tabs"><span class="tab active">All</span><span class="tab">Video</span><span class="tab">Code</span><span class="tab">Writing</span><span class="tab">Automation</span></div>
+      <div class="tabs"><span class="tab active" data-filter="all">All</span><span class="tab" data-filter="video">Video</span><span class="tab" data-filter="code">Code</span><span class="tab" data-filter="writing">Writing</span><span class="tab" data-filter="automation">Automation</span></div>
       <section class="grid">
-        <article class="feature"><div class="top"><div><h2>Launch Copilot</h2><span class="tag">Planning</span></div><div class="glyph">01</div></div><p>Turns a rough product idea into a launch plan, offer stack, asset checklist, and first-week content calendar.</p><div class="meta"><span>Best for builders</span><span>Free tier</span></div></article>
-        <article><div class="top"><div><h2>Clip Forge</h2><span class="tag">Video</span></div><div class="glyph">02</div></div><p>Pulls short clips from long recordings and drafts hooks for each cut.</p><div class="meta"><span>Fast</span><span>$19/mo</span></div></article>
-        <article><div class="top"><div><h2>Spec Smith</h2><span class="tag">Code</span></div><div class="glyph">03</div></div><p>Converts messy feature notes into implementation-ready issues.</p><div class="meta"><span>Dev</span><span>API</span></div></article>
-        <article><div class="top"><div><h2>Inbox Miner</h2><span class="tag">Research</span></div><div class="glyph">04</div></div><p>Finds patterns in customer emails and turns them into product insights.</p><div class="meta"><span>Teams</span><span>CSV</span></div></article>
-        <article><div class="top"><div><h2>Voice Draft</h2><span class="tag">Writing</span></div><div class="glyph">05</div></div><p>Rewrites notes into your actual voice without flattening the point.</p><div class="meta"><span>Creator</span><span>PWYW</span></div></article>
+        <article class="feature" data-category="automation planning"><div class="top"><div><h2>Launch Copilot</h2><span class="tag">Planning</span></div><div class="glyph">01</div></div><p>Turns a rough product idea into a launch plan, offer stack, asset checklist, and first-week content calendar.</p><div class="meta"><span>Best for builders</span><span>Free tier</span></div></article>
+        <article data-category="video"><div class="top"><div><h2>Clip Forge</h2><span class="tag">Video</span></div><div class="glyph">02</div></div><p>Pulls short clips from long recordings and drafts hooks for each cut.</p><div class="meta"><span>Fast</span><span>$19/mo</span></div></article>
+        <article data-category="code"><div class="top"><div><h2>Spec Smith</h2><span class="tag">Code</span></div><div class="glyph">03</div></div><p>Converts messy feature notes into implementation-ready issues.</p><div class="meta"><span>Dev</span><span>API</span></div></article>
+        <article data-category="research automation"><div class="top"><div><h2>Inbox Miner</h2><span class="tag">Research</span></div><div class="glyph">04</div></div><p>Finds patterns in customer emails and turns them into product insights.</p><div class="meta"><span>Teams</span><span>CSV</span></div></article>
+        <article data-category="writing"><div class="top"><div><h2>Voice Draft</h2><span class="tag">Writing</span></div><div class="glyph">05</div></div><p>Rewrites notes into your actual voice without flattening the point.</p><div class="meta"><span>Creator</span><span>PWYW</span></div></article>
       </section>
     </main>
   </div>
+  <script>
+    const search = document.querySelector('.search');
+    const tabs = document.querySelectorAll('.tab');
+    const cards = document.querySelectorAll('article');
+    let activeFilter = 'all';
+
+    function filterCards() {
+      const query = search.value.toLowerCase().replace('search:', '').trim();
+      cards.forEach((card) => {
+        const matchesFilter = activeFilter === 'all' || card.dataset.category.includes(activeFilter);
+        const matchesSearch = card.textContent.toLowerCase().includes(query);
+        card.style.display = matchesFilter && matchesSearch ? 'flex' : 'none';
+      });
+    }
+
+    search.addEventListener('input', filterCards);
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((item) => item.classList.remove('active'));
+        tab.classList.add('active');
+        activeFilter = tab.dataset.filter;
+        filterCards();
+      });
+    });
+  </script>
 </body>
 </html>

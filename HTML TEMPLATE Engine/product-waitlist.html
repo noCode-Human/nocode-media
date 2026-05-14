@@ -17,6 +17,8 @@
     label { font:11px "Space Mono", ui-monospace, monospace; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); }
     input, select { width:100%; padding:14px; border:1px solid var(--line); background:white; border-radius:4px; font:15px Inter, sans-serif; }
     button { border:0; background:var(--accent); color:#111; border-radius:4px; padding:15px; font-weight:900; cursor:pointer; }
+    .thanks { display:none; border:1px solid var(--accent); background:#fff; padding:14px; border-radius:6px; color:var(--ink); font-weight:800; }
+    form.joined .thanks { display:block; }
     .proof { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:-80px; position:relative; }
     .card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:18px; min-height:150px; }
     .card strong { display:block; font-size:30px; margin-bottom:8px; }
@@ -40,14 +42,25 @@
           <label for="email">Email</label><input id="email" value="hello@example.com">
           <label for="role">What are you building?</label><select id="role"><option>Template or digital product</option><option>SaaS app</option><option>Content business</option></select>
           <button>Join the list</button>
+          <div class="thanks">You're on the list. Invite 121 is reserved.</div>
         </form>
       </section>
       <section class="proof">
-        <div class="card"><strong>120</strong><span>Founding seats</span></div>
+        <div class="card"><strong id="seats">120</strong><span>Founding seats</span></div>
         <div class="card"><strong>48h</strong><span>Invite window</span></div>
         <div class="card"><strong>$9</strong><span>Early price</span></div>
       </section>
     </main>
   </div>
+  <script>
+    const form = document.querySelector('form');
+    const seats = document.querySelector('#seats');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      form.classList.add('joined');
+      seats.textContent = String(Number(seats.textContent) + 1);
+    });
+  </script>
 </body>
 </html>

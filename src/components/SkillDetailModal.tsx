@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { X, Code, Eye, Image, Star, Users, Copy, Check } from 'lucide-react';
-import type { Skill } from '@/data/skills';
+import type { Skill, SkillExample } from '@/data/skills';
 
 type TabType = 'preview' | 'markdown' | 'gallery';
 
@@ -13,6 +13,7 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
   const [activeTab, setActiveTab] = useState<TabType>('preview');
   const [copied, setCopied] = useState(false);
   const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [selectedExample, setSelectedExample] = useState<SkillExample | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,11 +25,18 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        if (selectedExample) {
+          setSelectedExample(null);
+          return;
+        }
+
+        onClose();
+      }
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, [onClose]);
+  }, [onClose, selectedExample]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(skill.markdown);
@@ -637,8 +645,21 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
                   <div
                     key={index}
                     className="gallery-item"
+                    role={example.html ? 'button' : undefined}
+                    tabIndex={example.html ? 0 : undefined}
+                    onClick={() => {
+                      if (example.html) setSelectedExample(example);
+                    }}
+                    onKeyDown={(event) => {
+                      if (!example.html) return;
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        setSelectedExample(example);
+                      }
+                    }}
                     style={{
                       animation: `slideUp 0.4s ease ${index * 100}ms both`,
+                      cursor: example.html ? 'pointer' : 'default',
                     }}
                   >
                     <div
@@ -653,7 +674,7 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
                         <iframe
                           title={`${example.title} template preview`}
                           srcDoc={example.html}
-                          sandbox=""
+                          sandbox="allow-scripts"
                           style={{
                             border: 'none',
                             transform: 'scale(0.42)',
@@ -719,6 +740,20 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
                       >
                         {example.description}
                       </div>
+                      {example.html && (
+                        <div
+                          style={{
+                            marginTop: 12,
+                            color: '#fff',
+                            fontSize: 9,
+                            fontFamily: "'Space Mono', monospace",
+                            letterSpacing: '1px',
+                            textTransform: 'uppercase',
+                          }}
+                        >
+                          Open live preview
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -727,6 +762,112 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
           )}
         </div>
       </div>
+
+      {selectedExample?.html && (
+        <div
+          onClick={(event) => {
+            event.stopPropagation();
+            setSelectedExample(null);
+          }}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 220,
+            background: 'rgba(0, 0, 0, 0.78)',
+            backdropFilter: 'blur(10px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 20,
+          }}
+        >
+          <div
+            onClick={(event) => event.stopPropagation()}
+            style={{
+              width: 'min(1180px, 100%)',
+              height: 'min(760px, 92vh)',
+              background: '#080808',
+              border: '1px solid rgba(var(--market-accent-rgb), 0.35)',
+              borderRadius: 12,
+              overflow: 'hidden',
+              boxShadow: '0 24px 80px rgba(0, 0, 0, 0.5)',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <div
+              style={{
+                minHeight: 54,
+                padding: '12px 14px 12px 18px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 14,
+                borderBottom: '1px solid #222',
+                background: '#0d0d0d',
+              }}
+            >
+              <div style={{ minWidth: 0 }}>
+                <div
+                  style={{
+                    color: '#fff',
+                    fontSize: 14,
+                    fontWeight: 700,
+                    fontFamily: "'Inter', sans-serif",
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {selectedExample.title}
+                </div>
+                <div
+                  style={{
+                    color: 'var(--market-accent)',
+                    fontSize: 10,
+                    fontFamily: "'Space Mono', monospace",
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    marginTop: 3,
+                  }}
+                >
+                  Live interactive preview
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedExample(null)}
+                style={{
+                  width: 34,
+                  height: 34,
+                  flexShrink: 0,
+                  borderRadius: 8,
+                  background: '#171717',
+                  border: '1px solid #333',
+                  color: '#fff',
+                  display: 'grid',
+                  placeItems: 'center',
+                  cursor: 'pointer',
+                }}
+                aria-label="Close live preview"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <iframe
+              title={`${selectedExample.title} live preview`}
+              srcDoc={selectedExample.html}
+              sandbox="allow-scripts allow-forms allow-popups"
+              allow="clipboard-write"
+              style={{
+                width: '100%',
+                flex: 1,
+                border: 'none',
+                background: '#fff',
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
