@@ -129,6 +129,9 @@ export default function Hero() {
           position: 'absolute',
           top: 32,
           left: 32,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
           fontSize: 14,
           fontWeight: 500,
           letterSpacing: '2px',
@@ -138,7 +141,19 @@ export default function Hero() {
           zIndex: 2,
         }}
       >
-        noCode.media
+        <img
+          src="/nocode-human-icon.png"
+          alt=""
+          aria-hidden="true"
+          style={{
+            width: 26,
+            height: 26,
+            objectFit: 'cover',
+            borderRadius: 3,
+            display: 'block',
+          }}
+        />
+        <span>noCode.media</span>
       </div>
 
       {/* Word Cycle */}
