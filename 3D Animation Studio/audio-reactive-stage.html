@@ -19,7 +19,54 @@
 <body>
   <main class="app"><canvas id="canvas"></canvas><aside><div class="brand">Audio Reactive Stage</div><h1>Prototype visualizers without audio setup.</h1><p>Fake-reactive controls make this easy to adapt for music apps, podcast tools, event pages, visual identity systems, or livestream overlays.</p><label for="energy">Energy</label><input id="energy" type="range" min="10" max="100" value="62"><label for="complexity">Complexity</label><input id="complexity" type="range" min="8" max="48" value="28"><button id="pulse">Pulse hit</button></aside></main>
   <script>
-    const c=canvas,ctx=c.getContext("2d");let hit=0;function size(){c.width=c.offsetWidth*devicePixelRatio;c.height=c.offsetHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}function draw(t){const w=c.offsetWidth,h=c.offsetHeight,e=+energy.value,steps=+complexity.value;ctx.clearRect(0,0,w,h);ctx.save();ctx.translate(w/2,h/2);for(let i=0;i<steps;i++){const a=i/steps*Math.PI*2+t*.0005;const r=80+Math.sin(t*.003+i)*e+hit;ctx.strokeStyle=i%3?"rgba(255,42,42,.55)":"rgba(255,244,232,.65)";ctx.lineWidth=2;ctx.beginPath();ctx.arc(Math.cos(a)*r*.35,Math.sin(a)*r*.2,r*.62,0,Math.PI*1.2);ctx.stroke()}ctx.restore();hit*=.9;requestAnimationFrame(draw)}pulse.onclick=()=>hit=80;addEventListener("resize",size);size();draw(0);
+    const canvasEl=document.querySelector("#canvas");
+    const ctx=canvasEl.getContext("2d");
+    const energyControl=document.querySelector("#energy");
+    const complexityControl=document.querySelector("#complexity");
+    const pulseButton=document.querySelector("#pulse");
+    let hit=0;
+    let width=1;
+    let height=1;
+
+    function size(){
+      const rect=canvasEl.getBoundingClientRect();
+      width=Math.max(320,rect.width);
+      height=Math.max(360,rect.height);
+      canvasEl.width=Math.round(width*devicePixelRatio);
+      canvasEl.height=Math.round(height*devicePixelRatio);
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+
+    function draw(t){
+      const energy=+energyControl.value;
+      const steps=+complexityControl.value;
+      ctx.clearRect(0,0,width,height);
+      ctx.save();
+      ctx.translate(width/2,height/2);
+      ctx.globalCompositeOperation="lighter";
+      for(let i=0;i<steps;i++){
+        const a=i/steps*Math.PI*2+t*.0005;
+        const pulse=Math.sin(t*.003+i)*energy+hit;
+        const r=84+pulse;
+        ctx.strokeStyle=i%3?"rgba(255,42,42,.72)":"rgba(255,244,232,.82)";
+        ctx.lineWidth=1.5+(i%4);
+        ctx.beginPath();
+        ctx.arc(Math.cos(a)*r*.32,Math.sin(a)*r*.22,r*.56,0,Math.PI*1.35);
+        ctx.stroke();
+        ctx.fillStyle=i%5?"rgba(255,42,42,.32)":"rgba(255,244,232,.48)";
+        ctx.beginPath();
+        ctx.arc(Math.cos(a)*r*.95,Math.sin(a)*r*.54,2.4+(i%5),0,Math.PI*2);
+        ctx.fill();
+      }
+      ctx.restore();
+      hit*=.9;
+      requestAnimationFrame(draw);
+    }
+
+    pulseButton.addEventListener("click",()=>hit=90);
+    new ResizeObserver(size).observe(canvasEl);
+    addEventListener("resize",size);
+    requestAnimationFrame(()=>{size();draw(0);});
   </script>
 </body>
 </html>
