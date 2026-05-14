@@ -284,6 +284,32 @@
   pointer-events: none;
 }
 
+/* Ko-fi support widget */
+.floatingchat-container-wrap,
+.floatingchat-container-wrap-mobi {
+  top: 24px !important;
+  right: 24px !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: 180px !important;
+  max-width: 180px !important;
+  z-index: 99999999 !important;
+}
+
+.floatingchat-container,
+.floatingchat-container-mobi {
+  right: 0 !important;
+  left: auto !important;
+}
+
+.floating-chat-kofi-popup-iframe,
+.floating-chat-kofi-popup-iframe-mobi {
+  top: 96px !important;
+  right: 24px !important;
+  bottom: auto !important;
+  left: auto !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .bento-grid {
@@ -295,5 +321,21 @@
   .bento-card.wide {
     grid-column: span 1;
     grid-row: span 1;
+  }
+
+  .floatingchat-container-wrap,
+  .floatingchat-container-wrap-mobi {
+    top: 16px !important;
+    right: 12px !important;
+    transform: scale(0.88);
+    transform-origin: top right;
+  }
+
+  .floating-chat-kofi-popup-iframe,
+  .floating-chat-kofi-popup-iframe-mobi {
+    top: 82px !important;
+    right: 12px !important;
+    width: calc(100vw - 24px) !important;
+    max-width: 325px !important;
   }
 }
