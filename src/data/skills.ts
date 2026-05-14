@@ -1,3 +1,4 @@
+import { checkoutConfig } from '@/config/checkout';
 import { htmlTemplateEngineExamples } from './htmlTemplateEngineExamples';
 import { animationStudioExamples, animationStudioSkillMarkdown } from './animationStudioExamples';
 
@@ -1187,8 +1188,10 @@ graph.on('click', (node) => {
     image: "/skills/3d-animations.jpg",
     featured: true,
     tags: ["3D", "Animation", "Three.js", "Motion"],
+    purchaseUrl: checkoutConfig.urls.animationStudio || undefined,
+    purchaseLabel: "Get Template",
     supportAfterCopy: true,
-    supportUrl: "https://ko-fi.com/s/768aff36b3",
+    supportUrl: checkoutConfig.urls.tip,
     supportLabel: "Support with a tip",
     stats: { uses: 7120, rating: 4.7, created: "2024-04-15" },
     markdown: animationStudioSkillMarkdown,
@@ -1203,10 +1206,10 @@ graph.on('click', (node) => {
     image: "/skills/html-templates.jpg",
     featured: false,
     tags: ["HTML", "Templates", "Responsive", "CSS"],
-    purchaseUrl: "https://ko-fi.com/s/768aff36b3",
+    purchaseUrl: checkoutConfig.urls.htmlTemplateEngine,
     purchaseLabel: "Get Template",
     supportAfterCopy: true,
-    supportUrl: "https://ko-fi.com/s/768aff36b3",
+    supportUrl: checkoutConfig.urls.tip,
     supportLabel: "Support with a tip",
     stats: { uses: 18900, rating: 4.8, created: "2024-01-15" },
     markdown: `## HTML Template Engine
