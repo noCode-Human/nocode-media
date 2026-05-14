@@ -19,6 +19,9 @@ export interface Skill {
   tags: string[];
   purchaseUrl?: string;
   purchaseLabel?: string;
+  supportAfterCopy?: boolean;
+  supportUrl?: string;
+  supportLabel?: string;
   markdown: string;
   htmlPreview: string;
   examples: SkillExample[];
@@ -1184,6 +1187,9 @@ graph.on('click', (node) => {
     image: "/skills/3d-animations.jpg",
     featured: true,
     tags: ["3D", "Animation", "Three.js", "Motion"],
+    supportAfterCopy: true,
+    supportUrl: "https://ko-fi.com/s/768aff36b3",
+    supportLabel: "Support with a tip",
     stats: { uses: 7120, rating: 4.7, created: "2024-04-15" },
     markdown: animationStudioSkillMarkdown,
     htmlPreview: animationStudioExamples[0].html,
@@ -1199,6 +1205,9 @@ graph.on('click', (node) => {
     tags: ["HTML", "Templates", "Responsive", "CSS"],
     purchaseUrl: "https://ko-fi.com/s/768aff36b3",
     purchaseLabel: "Get Template",
+    supportAfterCopy: true,
+    supportUrl: "https://ko-fi.com/s/768aff36b3",
+    supportLabel: "Support with a tip",
     stats: { uses: 18900, rating: 4.8, created: "2024-01-15" },
     markdown: `## HTML Template Engine
 

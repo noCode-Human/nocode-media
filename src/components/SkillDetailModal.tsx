@@ -4,6 +4,8 @@ import type { Skill, SkillExample } from '@/data/skills';
 
 type TabType = 'preview' | 'markdown' | 'gallery';
 
+const DEFAULT_SUPPORT_URL = 'https://ko-fi.com/s/768aff36b3';
+
 interface SkillDetailModalProps {
   skill: Skill;
   onClose: () => void;
@@ -14,6 +16,7 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
   const [copied, setCopied] = useState(false);
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [selectedExample, setSelectedExample] = useState<SkillExample | null>(null);
+  const [showCopySupport, setShowCopySupport] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,6 +29,11 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
+        if (showCopySupport) {
+          setShowCopySupport(false);
+          return;
+        }
+
         if (selectedExample) {
           setSelectedExample(null);
           return;
@@ -36,11 +44,34 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, [onClose, selectedExample]);
+  }, [onClose, selectedExample, showCopySupport]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(skill.markdown);
+  const copyToClipboard = async (text: string) => {
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch {
+        // Fall through to the textarea fallback for browsers that block clipboard access.
+      }
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+  };
+
+  const handleCopy = async () => {
+    await copyToClipboard(skill.markdown);
     setCopied(true);
+    if (skill.supportAfterCopy) {
+      setShowCopySupport(true);
+    }
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -343,6 +374,9 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
 
     return elements;
   };
+
+  const supportUrl = skill.supportUrl || skill.purchaseUrl || DEFAULT_SUPPORT_URL;
+  const supportLabel = skill.supportLabel || 'Support with a tip';
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -793,6 +827,129 @@ export default function SkillDetailModal({ skill, onClose }: SkillDetailModalPro
           )}
         </div>
       </div>
+
+      {showCopySupport && (
+        <div
+          onClick={(event) => {
+            event.stopPropagation();
+            setShowCopySupport(false);
+          }}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 240,
+            background: 'rgba(0, 0, 0, 0.72)',
+            backdropFilter: 'blur(12px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 20,
+          }}
+        >
+          <div
+            onClick={(event) => event.stopPropagation()}
+            style={{
+              width: 'min(540px, 100%)',
+              background: '#080808',
+              border: '1px solid rgba(var(--market-accent-rgb), 0.4)',
+              borderRadius: 14,
+              overflow: 'hidden',
+              boxShadow: '0 28px 90px rgba(0, 0, 0, 0.62)',
+            }}
+          >
+            <img
+              src="/nocode-human-polar-promo.png"
+              alt="NoCode Human support promo"
+              style={{
+                width: '100%',
+                aspectRatio: '16/9',
+                objectFit: 'cover',
+                display: 'block',
+                borderBottom: '1px solid #222',
+              }}
+            />
+            <div style={{ padding: 24 }}>
+              <div
+                style={{
+                  color: 'var(--market-accent)',
+                  fontSize: 10,
+                  fontFamily: "'Space Mono', monospace",
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  marginBottom: 12,
+                }}
+              >
+                Copied to clipboard
+              </div>
+              <h3
+                style={{
+                  color: '#fff',
+                  fontSize: 28,
+                  lineHeight: 1.05,
+                  fontFamily: "'Inter', sans-serif",
+                  margin: '0 0 10px',
+                }}
+              >
+                Support noCode Human
+              </h3>
+              <p
+                style={{
+                  color: '#aaa',
+                  fontSize: 14,
+                  lineHeight: 1.6,
+                  fontFamily: "'Inter', sans-serif",
+                  margin: '0 0 22px',
+                }}
+              >
+                Tips help keep the templates, skills, and weird useful little build tools coming.
+              </p>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                <a
+                  href={supportUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    padding: '12px 16px',
+                    background: 'var(--market-accent)',
+                    color: '#fff',
+                    textDecoration: 'none',
+                    borderRadius: 8,
+                    fontSize: 12,
+                    fontWeight: 800,
+                    fontFamily: "'Space Mono', monospace",
+                    letterSpacing: '0.8px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {supportLabel}
+                  <ExternalLink size={14} />
+                </a>
+                <button
+                  onClick={() => setShowCopySupport(false)}
+                  style={{
+                    padding: '12px 16px',
+                    background: '#171717',
+                    border: '1px solid #333',
+                    color: '#bbb',
+                    borderRadius: 8,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    fontFamily: "'Space Mono', monospace",
+                    letterSpacing: '0.8px',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Keep browsing
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {selectedExample?.html && (
         <div
