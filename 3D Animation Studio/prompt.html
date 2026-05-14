@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D Animation Studio Prompt Bank</title>
+  <style>
+    :root{--bg:#050505;--panel:#0d0d0d;--line:#262626;--text:#f8f3ee;--muted:#8b8580;--accent:#ff2a2a;--ok:#00ff9d}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+    .wrap{width:min(1180px,calc(100% - 32px));margin:auto;padding:32px 0 58px}
+    header{display:flex;justify-content:space-between;gap:16px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:18px;font:12px "Space Mono",monospace;text-transform:uppercase;letter-spacing:.14em}
+    h1{font-size:clamp(46px,8vw,104px);line-height:.88;margin:54px 0 18px;max-width:950px}
+    .lead{color:var(--muted);font-size:18px;line-height:1.6;max-width:760px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:34px}
+    article{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+    article:hover{border-color:var(--accent)}
+    h2{font-size:24px;margin:0 0 12px}
+    .tag{display:inline-flex;color:var(--accent);font:11px "Space Mono",monospace;text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px}
+    pre{white-space:pre-wrap;background:#050505;border:1px solid #222;border-radius:8px;padding:14px;color:#ddd;font:12px/1.65 "Space Mono",monospace;min-height:190px}
+    button{background:var(--accent);border:0;border-radius:6px;color:#080808;padding:11px 14px;font:12px "Space Mono",monospace;text-transform:uppercase;font-weight:900;cursor:pointer}
+    .copied{color:var(--ok);font:12px "Space Mono",monospace;margin-left:10px;opacity:0}
+    article.done .copied{opacity:1}
+    @media(max-width:820px){.grid{grid-template-columns:1fr}header{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header><span>3D Animation Studio</span><span>Prompt bank</span></header>
+    <main>
+      <h1>Prompts for adding the mini app to other stacks.</h1>
+      <p class="lead">Use these prompts with Codex, ChatGPT, Claude, v0, or any coding agent. Each prompt asks for a practical integration, not a decorative toy.</p>
+      <section class="grid">
+        <article><span class="tag">Next.js / SaaS</span><h2>Interactive product onboarding</h2><pre>Build a Next.js App Router component that embeds a 3D Animation Studio onboarding device scene. Use CSS 3D transforms, no external 3D library. Include three steps: dashboard, automation setup, results. Add accessible buttons, reduced motion fallback, and responsive mobile layout.</pre><button>Copy prompt</button><span class="copied">Copied</span></article>
+        <article><span class="tag">Shopify / Commerce</span><h2>Product configurator</h2><pre>Create a Shopify section for a 3D product configurator using one liquid file with inline CSS and JS. Controls should switch color, material, light angle, and CTA copy. Keep it fast, mobile-safe, and visually aligned to a black/white/red premium product brand.</pre><button>Copy prompt</button><span class="copied">Copied</span></article>
+        <article><span class="tag">Webflow / Embed</span><h2>Launch hero embed</h2><pre>Write a single HTML embed for Webflow: a cinematic 3D product orbit hero with headline, subtitle, CTA, and three interactive material buttons. Use only scoped CSS and vanilla JS so it will not break the rest of the Webflow page.</pre><button>Copy prompt</button><span class="copied">Copied</span></article>
+        <article><span class="tag">Framer</span><h2>Scroll story section</h2><pre>Create a Framer-ready code component concept for a chaptered 3D scroll story. The scene should rotate through three product states as the user scrolls. Include props for title, chapter copy, accent color, and object labels.</pre><button>Copy prompt</button><span class="copied">Copied</span></article>
+        <article><span class="tag">Dashboard</span><h2>3D metric visualization</h2><pre>Build a self-contained dashboard card that turns three metrics into an animated 3D orbit visual. Include a data switcher, animated bars, metric cards, and a plain fallback table for reduced motion users.</pre><button>Copy prompt</button><span class="copied">Copied</span></article>
+        <article><span class="tag">Portfolio</span><h2>Spatial project gallery</h2><pre>Make an interactive portfolio gallery where project cards sit in a 3D carousel. Include previous/next controls, keyboard support, project metadata, and links for live demo/case study. Keep it single-file HTML.</pre><button>Copy prompt</button><span class="copied">Copied</span></article>
+        <article><span class="tag">Course / Education</span><h2>Interactive lesson visual</h2><pre>Create a course lesson page with a 3D animated model that changes as learners click lesson steps. Use the 3D Animation Studio skill: dark UI, red accent, live progress, clear labels, and no build step.</pre><button>Copy prompt</button><span class="copied">Copied</span></article>
+        <article><span class="tag">Music / Creator Tool</span><h2>Audio-reactive teaser</h2><pre>Build a fake audio-reactive visualizer for a music app landing page. Include energy and complexity sliders, pulse button, canvas animation, and copy explaining how to connect real audio later.</pre><button>Copy prompt</button><span class="copied">Copied</span></article>
+      </section>
+    </main>
+  </div>
+  <script>
+    document.querySelectorAll("article").forEach(card=>{
+      card.querySelector("button").addEventListener("click",async()=>{
+        await navigator.clipboard.writeText(card.querySelector("pre").textContent.trim());
+        card.classList.add("done");
+        setTimeout(()=>card.classList.remove("done"),1400);
+      });
+    });
+  </script>
+</body>
+</html>

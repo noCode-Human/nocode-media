@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio Gallery Space</title>
+  <style>
+    :root{--bg:#050505;--panel:#101010;--line:#282828;--text:#f8f3ee;--muted:#8b8580;--accent:#ff2a2a;--i:0}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 20%,#170808,transparent 38%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
+    header{width:min(1160px,calc(100% - 32px));margin:auto;padding:28px 0 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font:12px "Space Mono",monospace;text-transform:uppercase;letter-spacing:.14em}
+    .stage{height:650px;display:grid;place-items:center;perspective:1100px;overflow:hidden}
+    .carousel{position:relative;width:320px;height:420px;transform-style:preserve-3d;transition:.8s cubic-bezier(.2,.8,.2,1);transform:rotateY(calc(var(--i) * -72deg))}
+    .card{position:absolute;inset:0;border:1px solid rgba(255,42,42,.32);border-radius:14px;background:linear-gradient(145deg,#111,#090909);padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+    .card:nth-child(1){transform:rotateY(0deg) translateZ(420px)}.card:nth-child(2){transform:rotateY(72deg) translateZ(420px)}.card:nth-child(3){transform:rotateY(144deg) translateZ(420px)}.card:nth-child(4){transform:rotateY(216deg) translateZ(420px)}.card:nth-child(5){transform:rotateY(288deg) translateZ(420px)}
+    .thumb{height:180px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#220909);display:grid;place-items:center;font:54px "Space Mono",monospace}
+    .tag{color:var(--accent);font:11px "Space Mono",monospace;text-transform:uppercase;letter-spacing:.13em}h1{font-size:30px;margin:18px 0 10px}p{color:var(--muted);line-height:1.5}
+    .controls{width:min(520px,calc(100% - 32px));margin:-24px auto 40px;display:grid;grid-template-columns:1fr 1fr;gap:12px}button{background:#171717;border:1px solid #333;color:var(--text);border-radius:6px;padding:13px;font:12px "Space Mono",monospace;text-transform:uppercase;cursor:pointer}button:hover{border-color:var(--accent);color:var(--accent)}
+    @media(max-width:760px){.stage{height:560px}.carousel{width:260px;height:370px}.card:nth-child(n){transform:rotateY(calc((var(--n) - 1) * 72deg)) translateZ(330px)}}
+  </style>
+</head>
+<body>
+  <header><span>Portfolio Gallery Space</span><span id="readout">Project 01 / Launch Kit</span></header>
+  <main class="stage"><section class="carousel" id="carousel">
+    <article class="card" style="--n:1"><div><div class="thumb">01</div><h1>Launch Kit</h1><span class="tag">Digital product</span><p>A spatial carousel for portfolios, case studies, and studio project pages.</p></div></article>
+    <article class="card" style="--n:2"><div><div class="thumb">02</div><h1>AI Console</h1><span class="tag">Dashboard</span><p>Show product work as objects in space instead of flat screenshots.</p></div></article>
+    <article class="card" style="--n:3"><div><div class="thumb">03</div><h1>Video System</h1><span class="tag">Creative ops</span><p>Great for founders, designers, editors, and AI builders.</p></div></article>
+    <article class="card" style="--n:4"><div><div class="thumb">04</div><h1>Prompt OS</h1><span class="tag">Template</span><p>Use it as a gallery, testimonial browser, or feature showcase.</p></div></article>
+    <article class="card" style="--n:5"><div><div class="thumb">05</div><h1>Portal</h1><span class="tag">Client work</span><p>Each card can link to a live demo, checkout, or case study.</p></div></article>
+  </section></main>
+  <div class="controls"><button id="prev">Previous</button><button id="next">Next</button></div>
+  <script>
+    const names=["Launch Kit","AI Console","Video System","Prompt OS","Portal"];let i=0;
+    function render(){document.documentElement.style.setProperty("--i",i);readout.textContent=`Project ${String(i+1).padStart(2,"0")} / ${names[i]}`}
+    prev.onclick=()=>{i=(i+4)%5;render()};next.onclick=()=>{i=(i+1)%5;render()};
+  </script>
+</body>
+</html>

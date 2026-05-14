@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>App Onboarding Device</title>
+  <style>
+    :root{--bg:#050505;--panel:#111;--line:#282828;--text:#f8f3ee;--muted:#8b8580;--accent:#ff2a2a;--screen:#111}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+    .wrap{width:min(1160px,calc(100% - 32px));margin:auto;padding:30px 0;display:grid;grid-template-columns:1fr 520px;gap:30px;align-items:center;min-height:100vh}
+    .kicker,button,.metric{font:12px "Space Mono",monospace;text-transform:uppercase;letter-spacing:.14em}.kicker{color:var(--accent)}
+    h1{font-size:clamp(44px,7vw,92px);line-height:.9;margin:20px 0}.lead{color:var(--muted);font-size:18px;line-height:1.6}
+    .steps{display:grid;gap:10px;margin-top:24px}.steps button{background:#131313;border:1px solid #333;color:var(--text);border-radius:6px;padding:14px;text-align:left;cursor:pointer}.steps button.active{border-color:var(--accent);color:var(--accent)}
+    .stage{height:620px;display:grid;place-items:center;perspective:1100px;border:1px solid rgba(255,42,42,.25);border-radius:14px;background:radial-gradient(circle,#1a0909,transparent 55%)}
+    .device{width:300px;height:530px;border:10px solid #242424;border-radius:36px;background:#090909;transform:rotateY(-24deg) rotateX(8deg);transition:.7s cubic-bezier(.2,.8,.2,1);box-shadow:40px 40px 100px rgba(255,42,42,.18);overflow:hidden}
+    .screen{height:100%;padding:22px;background:linear-gradient(160deg,var(--screen),#050505);display:flex;flex-direction:column;gap:12px}
+    .bar{height:12px;border-radius:99px;background:#272727}.bar.red{background:var(--accent)}.card{border:1px solid #333;border-radius:12px;padding:18px;margin-top:auto}.metric{color:var(--muted)}.big{font-size:46px;font-weight:900;color:var(--text)}
+    @media(max-width:900px){.wrap{grid-template-columns:1fr}.stage{height:560px}.device{transform:rotateY(-12deg) rotateX(6deg)}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section><div class="kicker">SaaS onboarding embed</div><h1 id="title">Show the workflow without a video.</h1><p class="lead" id="copy">A 3D device mockup that changes state as users click through onboarding steps.</p><div class="steps"><button class="active" data-step="0">01 Dashboard overview</button><button data-step="1">02 Automation setup</button><button data-step="2">03 Results screen</button></div></section>
+    <section class="stage"><div class="device" id="device"><div class="screen"><div class="bar red"></div><div class="bar"></div><div class="bar"></div><div class="card"><div class="metric" id="metric">Active workflows</div><div class="big" id="big">12</div></div></div></div></section>
+  </main>
+  <script>
+    const states=[["Show the workflow without a video.","A 3D device mockup that changes state as users click through onboarding steps.","Active workflows","12","#111","rotateY(-24deg) rotateX(8deg)"],["Make setup feel simple.","Use this state to explain integrations, imports, permissions, or AI agent setup.","Setup complete","84%","#160909","rotateY(0deg) rotateX(5deg)"],["Prove the outcome.","End with the metric, result, or before/after moment that makes the product click.","Hours saved","37","#09110d","rotateY(24deg) rotateX(8deg)"]];
+    document.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{const s=states[btn.dataset.step];document.querySelectorAll("button").forEach(b=>b.classList.toggle("active",b===btn));title.textContent=s[0];copy.textContent=s[1];metric.textContent=s[2];big.textContent=s[3];document.documentElement.style.setProperty("--screen",s[4]);device.style.transform=s[5]}));
+  </script>
+</body>
+</html>

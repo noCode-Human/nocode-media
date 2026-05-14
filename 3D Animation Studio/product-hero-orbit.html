@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product Hero Orbit</title>
+  <style>
+    :root{--bg:#050505;--panel:#101010;--line:#282828;--text:#f8f3ee;--muted:#8b8580;--accent:#ff2a2a;--ok:#00ff9d;--mat1:#ff2a2a;--mat2:#fff4e8}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:radial-gradient(circle at 70% 20%,#241010,transparent 34%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,sans-serif;overflow-x:hidden}
+    .app{width:min(1160px,calc(100% - 32px));margin:auto;padding:28px 0 42px}
+    header{display:flex;justify-content:space-between;gap:16px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:18px;font:12px "Space Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.14em}
+    .hero{display:grid;grid-template-columns:1fr 560px;gap:28px;align-items:center;min-height:680px}
+    h1{font-size:clamp(48px,8vw,104px);line-height:.88;margin:0 0 18px}
+    p{color:var(--muted);font-size:18px;line-height:1.6;max-width:560px}
+    .stage{height:520px;border:1px solid rgba(255,42,42,.28);border-radius:14px;background:#080808;position:relative;overflow:hidden;perspective:900px}
+    .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:40px 40px;opacity:.2}
+    .orbit{position:absolute;inset:0;transform-style:preserve-3d;animation:spin calc(16s / var(--speed,1)) linear infinite}
+    .ring{position:absolute;inset:112px;border:2px solid rgba(255,42,42,.35);border-radius:50%;transform:rotateX(68deg);box-shadow:0 0 42px rgba(255,42,42,.15)}
+    .core{position:absolute;left:50%;top:50%;width:136px;height:136px;border-radius:28px;transform:translate(-50%,-50%) rotateX(-18deg) rotateY(35deg);background:linear-gradient(135deg,var(--mat1),var(--mat2));box-shadow:0 30px 80px rgba(255,42,42,.28)}
+    .sat{position:absolute;left:50%;top:50%;width:58px;height:58px;border-radius:50%;background:var(--mat2);box-shadow:0 0 22px rgba(255,255,255,.24)}
+    .s1{transform:rotateY(0deg) translateZ(210px)}.s2{transform:rotateY(120deg) translateZ(210px)}.s3{transform:rotateY(240deg) translateZ(210px)}
+    .label{position:absolute;left:22px;bottom:22px;color:var(--ok);font:12px "Space Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em}
+    .controls{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+    button{background:#171717;border:1px solid #333;color:var(--text);border-radius:6px;padding:12px;font:12px "Space Mono",ui-monospace,monospace;text-transform:uppercase;cursor:pointer}
+    button:hover,button.active{border-color:var(--accent);color:var(--accent)}
+    @keyframes spin{to{transform:rotateY(360deg)}}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}.stage{height:430px}.controls{grid-template-columns:1fr}header{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header><span>3D Animation Studio</span><span>Product hero orbit</span></header>
+    <main class="hero">
+      <section>
+        <h1>A hero object that makes a product feel alive.</h1>
+        <p>Use this for product pages, SaaS launches, templates, plugin pages, or creator resources where a still screenshot feels too flat.</p>
+        <div class="controls">
+          <button data-material="ember" class="active">Ember</button>
+          <button data-material="ivory">Ivory</button>
+          <button data-material="terminal">Terminal</button>
+          <button data-speed="0.6">Slow</button>
+          <button data-speed="1">Normal</button>
+          <button data-speed="2">Fast</button>
+        </div>
+      </section>
+      <section class="stage" aria-label="Interactive 3D product orbit">
+        <div class="grid"></div>
+        <div class="orbit"><div class="ring"></div><div class="core"></div><div class="sat s1"></div><div class="sat s2"></div><div class="sat s3"></div></div>
+        <div class="label" id="readout">Material: Ember / Speed: Normal</div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const presets={ember:["#ff2a2a","#fff4e8"],ivory:["#fff4e8","#ff2a2a"],terminal:["#00ff9d","#111111"]};
+    const root=document.documentElement,readout=document.querySelector("#readout");
+    let material="ember",speed="1";
+    function render(){root.style.setProperty("--mat1",presets[material][0]);root.style.setProperty("--mat2",presets[material][1]);root.style.setProperty("--speed",speed);readout.textContent=`Material: ${material} / Speed: ${speed==="2"?"Fast":speed==="0.6"?"Slow":"Normal"}`}
+    document.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{if(btn.dataset.material){material=btn.dataset.material;document.querySelectorAll("[data-material]").forEach(b=>b.classList.toggle("active",b===btn))} if(btn.dataset.speed)speed=btn.dataset.speed;render()}));
+  </script>
+</body>
+</html>

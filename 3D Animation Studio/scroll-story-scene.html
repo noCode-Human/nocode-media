@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scroll Story Scene</title>
+  <style>
+    :root{--bg:#050505;--panel:#101010;--line:#2a2a2a;--text:#f8f3ee;--muted:#8b8580;--accent:#ff2a2a;--chapter:0}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+    .app{display:grid;grid-template-columns:380px 1fr;min-height:100vh}
+    aside{padding:28px;border-right:1px solid var(--line);position:sticky;top:0;height:100vh;background:#080808}
+    .brand,.meta{font:12px "Space Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.14em}.meta{color:var(--accent);margin-top:18px}
+    h1{font-size:clamp(40px,6vw,76px);line-height:.9;margin:58px 0 18px}
+    p{color:var(--muted);line-height:1.6}
+    button{width:100%;margin-top:10px;background:#171717;border:1px solid #333;color:var(--text);border-radius:6px;padding:13px;font:12px "Space Mono",ui-monospace,monospace;text-transform:uppercase;cursor:pointer}
+    button.active{border-color:var(--accent);color:var(--accent)}
+    main{min-height:300vh}
+    .scene{position:sticky;top:0;height:100vh;display:grid;place-items:center;overflow:hidden;perspective:900px}
+    .world{width:min(620px,80vw);height:min(620px,80vw);position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+    .node{position:absolute;left:50%;top:50%;width:130px;height:130px;margin:-65px;border-radius:24px;background:linear-gradient(135deg,#ff2a2a,#220909);box-shadow:0 30px 80px rgba(255,42,42,.24);display:grid;place-items:center;font:24px "Space Mono",monospace}
+    .n1{transform:translate3d(-180px,-90px,80px) rotateY(28deg)}.n2{transform:translate3d(130px,-40px,20px) rotateX(22deg)}.n3{transform:translate3d(-30px,150px,140px) rotateZ(10deg)}
+    .trail{position:absolute;inset:15%;border:1px solid rgba(255,42,42,.35);border-radius:50%;transform:rotateX(70deg);box-shadow:0 0 60px rgba(255,42,42,.12)}
+    body[data-chapter="0"] .world{transform:rotateX(18deg) rotateY(-20deg)}
+    body[data-chapter="1"] .world{transform:rotateX(52deg) rotateY(22deg) translateZ(30px)}
+    body[data-chapter="2"] .world{transform:rotateX(8deg) rotateY(120deg) scale(1.08)}
+    @media(max-width:860px){.app{grid-template-columns:1fr}aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}main{min-height:120vh}.scene{height:70vh}}
+  </style>
+</head>
+<body data-chapter="0">
+  <div class="app">
+    <aside>
+      <div class="brand">Scroll Story Scene</div>
+      <h1 id="title">Start with a spark.</h1>
+      <p id="copy">A chaptered 3D scene for product launches, editorial explainers, portfolio case studies, or course lessons.</p>
+      <div class="meta" id="meta">Chapter 01 / Signal</div>
+      <button class="active" data-chapter="0">Signal</button><button data-chapter="1">System</button><button data-chapter="2">Ship</button>
+    </aside>
+    <main><section class="scene"><div class="world"><div class="trail"></div><div class="node n1">01</div><div class="node n2">02</div><div class="node n3">03</div></div></section></main>
+  </div>
+  <script>
+    const content=[["Start with a spark.","Show the raw idea before the user understands the full system.","Chapter 01 / Signal"],["Reveal the system.","Move the camera to show connected modules, workflows, and invisible structure.","Chapter 02 / System"],["Make the ship moment tangible.","End on momentum: the object grows, rotates, and feels ready to launch.","Chapter 03 / Ship"]];
+    document.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{const i=btn.dataset.chapter;document.body.dataset.chapter=i;document.querySelectorAll("button").forEach(b=>b.classList.toggle("active",b===btn));title.textContent=content[i][0];copy.textContent=content[i][1];meta.textContent=content[i][2]}));
+  </script>
+</body>
+</html>

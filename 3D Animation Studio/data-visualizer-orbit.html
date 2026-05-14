@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Visualizer Orbit</title>
+  <style>
+    :root{--bg:#050505;--panel:#101010;--line:#282828;--text:#f8f3ee;--muted:#8b8580;--accent:#ff2a2a;--ok:#00ff9d}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+    .app{width:min(1180px,calc(100% - 32px));margin:auto;padding:28px 0;min-height:100vh}
+    header{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:18px;font:12px "Space Mono",monospace;text-transform:uppercase;letter-spacing:.14em}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;min-height:720px}
+    h1{font-size:clamp(42px,7vw,92px);line-height:.9;margin:0 0 18px}p{color:var(--muted);font-size:18px;line-height:1.6}
+    .stage{height:540px;border:1px solid rgba(255,42,42,.26);border-radius:14px;background:#080808;display:grid;place-items:center;perspective:900px;overflow:hidden}
+    .orbit{position:relative;width:420px;height:420px;transform-style:preserve-3d;animation:spin 18s linear infinite}.ring{position:absolute;inset:40px;border:1px solid rgba(255,42,42,.35);border-radius:50%;transform:rotateX(70deg)}
+    .bar{position:absolute;left:50%;top:50%;width:48px;height:var(--h);margin-left:-24px;margin-top:calc(var(--h) * -.5);background:linear-gradient(#ff5a5a,#5b0b0b);border-radius:8px;transform:rotateY(var(--r)) translateZ(160px);box-shadow:0 0 28px rgba(255,42,42,.22)}
+    .panel{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.metric{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:16px}.metric strong{display:block;font-size:34px}.metric span{color:var(--muted);font:11px "Space Mono",monospace;text-transform:uppercase}
+    button{background:var(--accent);border:0;color:#080808;border-radius:6px;padding:14px 18px;font-weight:900;cursor:pointer;margin-top:20px}
+    @keyframes spin{to{transform:rotateY(360deg)}}@media(max-width:900px){.grid{grid-template-columns:1fr}.stage{height:460px}.panel{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="app"><header><span>Data Visualizer Orbit</span><span id="mode">Revenue view</span></header><main class="grid"><section><h1>Make metrics feel spatial.</h1><p>Turn boring dashboard numbers into an animated 3D readout for reports, analytics products, internal tools, and launch recaps.</p><button id="swap">Swap data set</button><div class="panel"><div class="metric"><strong id="m1">$42k</strong><span>Revenue</span></div><div class="metric"><strong id="m2">18%</strong><span>Growth</span></div><div class="metric"><strong id="m3">9.4</strong><span>Score</span></div></div></section><section class="stage"><div class="orbit" id="orbit"><div class="ring"></div></div></section></main></div>
+  <script>
+    const sets=[{mode:"Revenue view",values:[80,160,120,220,140,190],m:["$42k","18%","9.4"]},{mode:"Usage view",values:[180,90,240,130,210,160],m:["7.1k","34%","4.7"]}];let active=0;
+    function render(){orbit.innerHTML='<div class="ring"></div>'+sets[active].values.map((h,i)=>`<div class="bar" style="--h:${h}px;--r:${i*60}deg"></div>`).join("");mode.textContent=sets[active].mode;[m1.textContent,m2.textContent,m3.textContent]=sets[active].m}
+    swap.onclick=()=>{active=active?0:1;render()};render();
+  </script>
+</body>
+</html>

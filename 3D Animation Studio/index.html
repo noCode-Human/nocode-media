@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D Animation Studio Pack</title>
+  <style>
+    :root{--bg:#050505;--panel:#0d0d0d;--line:#242424;--text:#f7f2ee;--muted:#8d8782;--accent:#ff2a2a;--ok:#00ff9d}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+    .wrap{width:min(1180px,calc(100% - 32px));margin:auto;padding:32px 0 56px}
+    header{display:flex;justify-content:space-between;gap:16px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:18px}
+    .brand,.meta,.tag{font:12px "Space Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.14em}
+    .meta{color:var(--muted)}
+    h1{font-size:clamp(46px,8vw,104px);line-height:.88;margin:50px 0 18px;max-width:980px}
+    p{color:var(--muted);font-size:18px;line-height:1.6;max-width:720px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+    a.card{display:flex;flex-direction:column;justify-content:space-between;min-height:220px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;color:var(--text);text-decoration:none}
+    a.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+    h2{font-size:24px;margin:12px 0}
+    .tag{color:var(--accent)}
+    .file{font:12px "Space Mono",ui-monospace,monospace;color:var(--ok);margin-top:24px}
+    .wide{grid-column:span 2;background:#120909}
+    @media(max-width:860px){.grid{grid-template-columns:1fr}.wide{grid-column:span 1}header{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header><div class="brand">3D Animation Studio</div><div class="meta">Single-file HTML examples</div></header>
+    <main>
+      <h1>Interactive 3D mini apps you can drop into real products.</h1>
+      <p>Each example opens directly in the browser, uses the included SKILL.md design and build rules, and has real controls so buyers can test the interaction before adapting it.</p>
+      <section class="grid">
+        <a class="card wide" href="product-hero-orbit.html"><div><span class="tag">Product page</span><h2>Product Hero Orbit</h2><p>Interactive orbiting object with material switching and speed controls.</p></div><span class="file">product-hero-orbit.html</span></a>
+        <a class="card" href="scroll-story-scene.html"><div><span class="tag">Storytelling</span><h2>Scroll Story Scene</h2><p>Chaptered 3D scene for launches, essays, and landing pages.</p></div><span class="file">scroll-story-scene.html</span></a>
+        <a class="card" href="particle-title-reveal.html"><div><span class="tag">Particles</span><h2>Particle Title Reveal</h2><p>Canvas particle reveal with density and phrase controls.</p></div><span class="file">particle-title-reveal.html</span></a>
+        <a class="card" href="app-onboarding-device.html"><div><span class="tag">SaaS</span><h2>App Onboarding Device</h2><p>A 3D device tour for product walkthroughs and onboarding.</p></div><span class="file">app-onboarding-device.html</span></a>
+        <a class="card" href="portfolio-gallery-space.html"><div><span class="tag">Portfolio</span><h2>Portfolio Gallery Space</h2><p>Spatial project carousel with keyboard-style controls.</p></div><span class="file">portfolio-gallery-space.html</span></a>
+        <a class="card" href="data-visualizer-orbit.html"><div><span class="tag">Dashboard</span><h2>Data Visualizer Orbit</h2><p>Animated 3D metric objects for dashboards and reports.</p></div><span class="file">data-visualizer-orbit.html</span></a>
+        <a class="card" href="ecommerce-configurator.html"><div><span class="tag">Commerce</span><h2>Ecommerce Configurator</h2><p>Material, lighting, and angle controls for a product configurator.</p></div><span class="file">ecommerce-configurator.html</span></a>
+        <a class="card" href="audio-reactive-stage.html"><div><span class="tag">Creative tool</span><h2>Audio Reactive Stage</h2><p>Fake audio-reactive stage with waveform, energy, and palette controls.</p></div><span class="file">audio-reactive-stage.html</span></a>
+        <a class="card wide" href="prompt.html"><div><span class="tag">Prompt bank</span><h2>Prompts for other stacks and app ideas</h2><p>Copyable prompts for React, Next.js, Shopify, Framer, Webflow embeds, dashboards, portfolios, and launch pages.</p></div><span class="file">prompt.html</span></a>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
