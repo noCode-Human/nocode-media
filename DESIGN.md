@@ -93,6 +93,10 @@ Small controls use 4-8px radii. Bento cards use 12px. Do not round marketplace c
 
 Active filters, category badges, ratings, modal tabs, loading text, terminal cursors, and hover borders use the red accent token. Status dots and copied states remain green.
 
+## Motion
+
+The hero may use one subtle cursor-following ASCII accent. Keep it low opacity, behind content, and off narrow mobile viewports. Respect `prefers-reduced-motion`; do not add competing hero animations.
+
 ## Do's and Don'ts
 
 Do preserve the existing composition and spacing. Do swap accent color through tokens when touching app chrome. Do not introduce blue/cyan as a highlight accent. Do not redesign the hero, grid, card anatomy, modal structure, or typography scale for this color update.
